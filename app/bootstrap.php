@@ -4,6 +4,7 @@
 
     // Load Helper
     require_once 'helpers/url_helper.php';
+    require_once 'helpers/session_helper.php';
 
     // Load Liberies
     require_once 'libraries/Core.php';
