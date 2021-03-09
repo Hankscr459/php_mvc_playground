@@ -11,7 +11,7 @@
                         <input 
                             type="text" 
                             name="title" 
-                            class="form-control form-control-lg <?php echo (!empty($data['title_err'])) ? 'is-invaild' : ''; ?>"
+                            class="form-control form-control-lg <?php echo (!empty($data['title_err'])) ? 'is-invalid' : ''; ?>"
                             value="<?php echo $data['title']; ?>"
                             
                         >
@@ -22,7 +22,7 @@
                         <label for="body">body: <sup>*</sup></label>
                         <textarea 
                             name="body" 
-                            class="form-control form-control-lg <?php echo (!empty($data['body_err'])) ? 'is-invaild' : ''; ?>"
+                            class="form-control form-control-lg <?php echo (!empty($data['body_err'])) ? 'is-invalid' : ''; ?>"
                             value="<?php echo $data['body']; ?>"
                             
                         ></textarea>

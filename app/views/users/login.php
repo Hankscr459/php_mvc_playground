@@ -12,7 +12,7 @@
                         <input 
                             type="email" 
                             name="email" 
-                            class="form-control form-control-lg <?php echo (!empty($data['email_err'])) ? 'is-invaild' : ''; ?>"
+                            class="form-control form-control-lg <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>"
                             value="<?php echo $data['email']; ?>"
                             
                         >
@@ -24,7 +24,7 @@
                         <input 
                             type="password" 
                             name="password" 
-                            class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invaild' : ''; ?>"
+                            class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>"
                             value="<?php echo $data['password']; ?>"
                             
                         >
