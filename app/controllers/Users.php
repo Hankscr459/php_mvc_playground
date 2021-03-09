@@ -2,7 +2,7 @@
     class Users extends Controller {
         public function __construct()
         {
-            
+            $this->userModel = $this->model('User');
         }
 
         public function register() {
@@ -33,6 +33,11 @@
                 // Validate Name
                 if (empty($data['name'])) {
                     $data['name_err'] = 'Please enter name';
+                } else {
+                    // Check email
+                    if ($this->userModel->fundUserByEmail($data['email'])) {
+                        $data['email_err'] = 'Email is already token';
+                    }
                 }
 
                 // Validate Password
@@ -111,7 +116,7 @@
                     // Load view with errors
                     $this->view('users/login', $data);
                 }
-                
+
             } else {
                 // Load form
                 $data = [
