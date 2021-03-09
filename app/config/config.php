@@ -12,3 +12,5 @@
     define('URLROOT', 'http://localhost/php_mvc');
     // Site Name
     define('SITENAME', 'SharePosts');
+    // App Version
+    define('APPVERSION', '1.0.0');
