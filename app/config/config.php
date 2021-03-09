@@ -11,4 +11,4 @@
     // URL Root
     define('URLROOT', 'http://localhost/php_mvc');
     // Site Name
-    define('SITENAME', 'php_mvc');
+    define('SITENAME', 'SharePosts');
