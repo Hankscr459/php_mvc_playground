@@ -81,4 +81,10 @@ class Database {
     public function rowCount() {
         return $this->stmt->rowCount();
     }
+
+    public function Count() {
+        $this->execute();
+        $data = $this->stmt->fetch(PDO::FETCH_NUM);
+        return $data[0];
+    }
 }

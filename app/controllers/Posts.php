@@ -11,11 +11,19 @@
         }
 
         public function index() {
+
+            $items_total_count = $this->postModel->postCount();
+            $page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+            $items_per_page = !empty($_GET['items_per_page']) ? (int)$_GET['items_per_page'] : 4;
+
             // Get posts
-            $posts = $this->postModel->getPosts();
+            $posts = $this->postModel->getPosts($page, $items_per_page, $items_total_count);
 
             $data = [
-                'posts' => $posts
+                'posts' => $posts,
+                'posts_total' => $items_total_count,
+                'page_total' => ceil($items_total_count/$items_per_page),
+                'current_page' => $page
             ];
 
             $this->view('posts/index', $data);
@@ -132,6 +140,7 @@
         public function show($id) {
             $post = $this->postModel->getPostById($id);
             $user = $this->userModel->getUserById($post->user_id);
+            
 
             $data = [
                 'post' => $post,

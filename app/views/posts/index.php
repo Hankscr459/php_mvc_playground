@@ -3,7 +3,8 @@
     <div class="row mb-3">
 
         <div class="col-md-6">
-            <h1>Posts</h1>
+            <h1>Posts (<?php echo $data['posts_total']; ?>) Total Page: <?php echo $data['page_total']; ?></h1>
+            <h2>Current Page: <?php echo $data['current_page']; ?></h2>
         </div>
 
         <div class="col-md-6">
@@ -29,5 +30,16 @@
             </a>
         </div>
     <?php endforeach; ?>
+    <ul class="pagination">
+    <?php 
+        for ($i=1; $i <= $data['page_total'] ; $i++) {
+            if($i == $data['current_page']) {
+                echo "<li class='active page-item'><a class='page-link' href='posts?page={$i}'>{$i}</a></li>";
+            } else {
+                echo "<li class='page-item'><a class='page-link' href='posts?page={$i}'>{$i}</a></li>";
+            }
+        }
+    ?>
+    </ul>
     
 <?php require APPROOT . '/views/inc/footer.php'; ?>

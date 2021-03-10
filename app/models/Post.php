@@ -5,10 +5,17 @@
         public function __construct()
         {
             $this->db = new Database;
+            $this->paginate = new Paginate;
         }
 
-        public function getPosts() {
-            $this->db->query('SELECT *,
+        public function getPosts($page, $items_per_page, $items_total_count) {
+
+            $this->paginate->page = $page;
+            $this->paginate->items_per_page = $items_per_page;
+            $this->paginate->items_total_count = $items_total_count;
+            $current_page = ($page - 1) * $items_per_page;
+            
+            $this->db->query("SELECT *,
                               posts.id as postId,
                               users.id as userId,
                               posts.created_at as postCreated,
@@ -17,7 +24,9 @@
                               INNER JOIN users
                               ON posts.user_id = users.id
                               ORDER BY posts.created_at DESC
-                              ');
+                              LIMIT ${items_per_page} 
+                              OFFSET {$current_page}
+                              ");
 
             $results = $this->db->resultSet();
 
@@ -73,6 +82,13 @@
             } else {
                 return false;
             }
+        }
+
+        public function postCount() {
+            // Post Count
+            $this->db->query('SELECT COUNT(*) FROM posts');
+            $results = $this->db->Count();
+            return $results;
         }
     }
 ?>
