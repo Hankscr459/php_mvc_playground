@@ -119,5 +119,13 @@
             $results = $this->db->Count();
             return $results;
         }
+
+        public function viewsPostCount($id) {
+            // Add View count
+            $this->db->query("UPDATE posts SET post_views_count = post_views_count + 1 WHERE id = :id ");
+            $this->db->bind(':id', $id);
+
+            $this->db->execute();
+        }
     }
 ?>

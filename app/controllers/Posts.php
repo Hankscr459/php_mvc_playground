@@ -58,7 +58,7 @@
                     'post_image_err' => '',
                     'message' => ''
                 ];
-                
+
                 // Validate title
                 if(empty($data['title'])) {
                     $data['title_err'] = 'Please enter title';
@@ -179,8 +179,8 @@
 
         public function show($id) {
             $post = $this->postModel->getPostById($id);
+            $this->postModel->viewsPostCount($id);
             $user = $this->userModel->getUserById($post->user_id);
-            
 
             $data = [
                 'post' => $post,
