@@ -45,16 +45,21 @@
                 // Sanitize POST array
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+                $path_parts = pathinfo($_FILES['post_image']["name"]);
+                $image_path = $path_parts['filename'].'_'.time().'.'.$path_parts['extension'];
+
                 $data = [
                     'title' => trim($_POST['title']),
                     'body' => trim($_POST['body']),
-                    'post_image' => $_FILES['post_image']['name'],
+                    'post_image' => $image_path,
                     'user_id' => $_SESSION['user_id'],
                     'title_err' => '',
                     'body_err' => '',
                     'post_image_err' => '',
                     'message' => ''
                 ];
+
+                
 
                 // Validate title
                 if(empty($data['title'])) {
@@ -84,7 +89,7 @@
                         $data['post_image_err'] = 'The uploaded file exceeds the upload_max_filesize 80MB';
                     } else if (!in_array($detectedType, $allowedTypes) && !empty($_FILES['post_image']['name'])) {
                         $data['post_image_err'] = "File must be image type.";
-                    } else if(move_uploaded_file($temp_name, $directory . "/" . $_FILES['post_image']['name'])) {
+                    } else if(move_uploaded_file($temp_name, $directory . "/" . $image_path)) {
                         $data['message'] = "File upload successfully";
                     } else {
                         $the_error = $_FILES['post_image']['error'];
