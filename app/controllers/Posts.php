@@ -51,16 +51,14 @@
                 $data = [
                     'title' => trim($_POST['title']),
                     'body' => trim($_POST['body']),
-                    'post_image' => $image_path,
+                    'post_image' => $_FILES['post_image']['name'] ? $image_path : 'default.jpg',
                     'user_id' => $_SESSION['user_id'],
                     'title_err' => '',
                     'body_err' => '',
                     'post_image_err' => '',
                     'message' => ''
                 ];
-
                 
-
                 // Validate title
                 if(empty($data['title'])) {
                     $data['title_err'] = 'Please enter title';
@@ -68,10 +66,6 @@
 
                 if(empty($data['body'])) {
                     $data['body_err'] = 'Please enter body text';
-                }
-
-                if(empty($data['post_image'])) {
-                    $data['post_image'] = 'default.jpg';
                 }
 
 
