@@ -3,8 +3,8 @@
     <div class="row mb-3">
 
         <div class="col-md-6">
-            <h1>Posts (<?php echo $data['posts_total']; ?>) Total Page: <?php echo $data['page_total']; ?></h1>
-            <h2>Current Page: <?php echo $data['current_page']; ?></h2>
+            <h1>Posts (<?php echo $data['posts_total']; ?>)</h1>
+            <h2>Current Page: <?php echo $data['current_page']; ?> Total Page: <?php echo $data['page_total']; ?></h2>
         </div>
 
         <div class="col-md-6">

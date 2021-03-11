@@ -31,6 +31,16 @@
 
         public function add() {
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $upload_errors = array(
+                    UPLOAD_ERR_OK        => "There is no error",
+                    UPLOAD_ERR_INI_SIZE  => "The uploaded file exceeds the upload_max_filesize ",
+                    UPLOAD_ERR_FORM_SIZE => "The uploaded file exceeds the MAX_FILE_SIZE directive",
+                    UPLOAD_ERR_PARTIAL   => "The uploaded file was only partially uploaded.",
+                    // UPLOAD_ERR_NO_FILE   => "No file was uploaded.",
+                    UPLOAD_ERR_NO_TMP_DIR=> "Missing a temporary folder.",
+                    UPLOAD_ERR_CANT_WRITE=> "Failed to write file to disk.",
+                    UPLOAD_ERR_EXTENSION => "A PHP extension stopped the file upload."
+                );
                 
                 // Sanitize POST array
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -38,9 +48,12 @@
                 $data = [
                     'title' => trim($_POST['title']),
                     'body' => trim($_POST['body']),
+                    'post_image' => $_FILES['post_image']['name'],
                     'user_id' => $_SESSION['user_id'],
                     'title_err' => '',
-                    'body_err' => ''
+                    'body_err' => '',
+                    'post_image_err' => '',
+                    'message' => ''
                 ];
 
                 // Validate title
@@ -52,9 +65,37 @@
                     $data['body_err'] = 'Please enter body text';
                 }
 
+                if(empty($data['post_image'])) {
+                    $data['post_image'] = 'default.jpg';
+                }
+
+
+                $the_error = $_FILES['post_image']['error'];
+
+                
+                $temp_name = $_FILES['post_image']['tmp_name'];
+                $directory = "upload";
+
+                $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+                $detectedType = @exif_imagetype($_FILES['post_image']['tmp_name']);
+
+                if (is_uploaded_file($temp_name)) {
+                    if ($_FILES['post_image']['size'] > 80000000) {
+                        $data['post_image_err'] = 'The uploaded file exceeds the upload_max_filesize 80MB';
+                    } else if (!in_array($detectedType, $allowedTypes) && !empty($_FILES['post_image']['name'])) {
+                        $data['post_image_err'] = "File must be image type.";
+                    } else if(move_uploaded_file($temp_name, $directory . "/" . $_FILES['post_image']['name'])) {
+                        $data['message'] = "File upload successfully";
+                    } else {
+                        $the_error = $_FILES['post_image']['error'];
+                        $data['post_image_err'] = $upload_errors[$the_error];
+                    }
+                }
+
                 // Make sure no errors
-                if(empty($data['title_err']) && empty($data['body_err'])) {
+                if(empty($data['title_err']) && empty($data['body_err']) && empty($data['post_image_err'])) {
                     // Validated
+
                     if ($this->postModel->addPost($data)) {
                         flash('post_message', 'Post Added');
                         redirect('posts');
