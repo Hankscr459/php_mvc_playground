@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
     <?php flash('post_message'); ?>
-    <div class="row mb-3">
+    <div class="row mb-3 mt-5">
 
         <div class="col-md-6">
             <h1>Posts (<?php echo $data['posts_total']; ?>)</h1>

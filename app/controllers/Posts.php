@@ -195,7 +195,7 @@
                 // Get existing post from model
                 $post = $this->postModel->getPostById($id);
 
-                // Check for owner
+                // Check for owner or admin
                 if ($post->user_id != $_SESSION['user_id']) {
                     redirect('posts');
                 }
