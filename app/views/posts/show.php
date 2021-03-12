@@ -22,24 +22,33 @@
     <!-- Comments Form -->
     <div class="well mt-5">
         <h4>Leave a Comment:</h4>
-        <form role="form">
+        <form role="form" action="<?php echo URLROOT; ?>/comments/add/<?php echo $data['post']->id; ?>" method="post">
             <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" rows="3" name="body"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
         </form>
     </div>
 
+
+    <h2>Comments(<?php echo count($data['comments']); ?>)</h2>
+
     <!-- Comment -->
-    <div class="media mb-5 mt-5">
-        <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/64x64" alt="">
-        </a>
-        <div class="media-body">
-            <h4 class="media-heading ml-3">author
-            </h4>
-            <p class="ml-3">Body</p>
+    <?php foreach($data['comments'] as $comment) : ?>
+        <div class="media mb-5 mt-5">
+            
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading ml-3"><?php echo $comment->author; ?></h4>
+                    <div class="d-flex justify-content-between ml-3">
+                        <span><?php echo $comment->body; ?></span>
+                        <span>Created_at: <?php echo $comment->created_at; ?></span>
+                    </div>
+                </div>
+            
         </div>
-    </div>
+    <?php endforeach; ?>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

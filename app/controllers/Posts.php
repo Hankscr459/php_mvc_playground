@@ -8,6 +8,7 @@
 
             $this->postModel = $this->model('Post');
             $this->userModel = $this->model('User');
+            $this->commentModel = $this->model('Comment');
         }
 
         public function index() {
@@ -181,10 +182,12 @@
             $post = $this->postModel->getPostById($id);
             $this->postModel->viewsPostCount($id);
             $user = $this->userModel->getUserById($post->user_id);
+            $comments = $this->commentModel->getCommentById($id);
 
             $data = [
                 'post' => $post,
-                'user' => $user
+                'user' => $user,
+                'comments' => $comments
             ];
 
             $this->view('posts/show', $data);
