@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2021-03-12 09:55:11
+-- 產生時間： 2021-03-13 14:49:42
 -- 伺服器版本： 10.4.17-MariaDB
 -- PHP 版本： 7.3.27
 
@@ -32,8 +32,20 @@ CREATE TABLE `comments` (
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `author` varchar(255) NOT NULL,
-  `body` text NOT NULL
+  `body` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 傾印資料表的資料 `comments`
+--
+
+INSERT INTO `comments` (`id`, `post_id`, `user_id`, `author`, `body`, `created_at`) VALUES
+(1, 58, 4, 'hank', 'hello again', '2021-03-12 22:06:20'),
+(6, 58, 2, 'black', 'author black comment', '2021-03-12 11:43:24'),
+(7, 16, 2, 'black', 'black comments.', '2021-03-12 11:43:27'),
+(8, 58, 3, 'white', 'white, comment.', '2021-03-13 11:45:32'),
+(9, 16, 3, 'white', 'author white, comment.', '2021-03-13 11:46:01');
 
 -- --------------------------------------------------------
 
@@ -56,7 +68,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `title`, `body`, `post_image`, `post_views_count`, `created_at`) VALUES
-(2, 4, 'This is a test post two.', 'This is a description Two.', 'default.jpg', 0, '2021-03-09 16:55:03'),
+(2, 4, 'This is a test post two.', 'This is a description Two.', 'default.jpg', 1, '2021-03-09 16:55:03'),
 (3, 4, 'test Post', 'this is a description', 'default.jpg', 0, '2021-03-09 22:41:25'),
 (4, 4, 'test Post three', 'this is a description three', 'default.jpg', 0, '2021-03-10 10:25:28'),
 (5, 4, 'Test Post four', 'this is a description four.', 'default.jpg', 0, '2021-03-10 10:26:58'),
@@ -64,11 +76,11 @@ INSERT INTO `posts` (`id`, `user_id`, `title`, `body`, `post_image`, `post_views
 (9, 2, 'Test Post 8', 'this is a description.', 'default.jpg', 0, '2021-03-10 11:18:00'),
 (10, 2, 'Test Post 9', 'this is a description.', 'default.jpg', 0, '2021-03-10 11:18:23'),
 (11, 2, 'Test Post 10', 'this is a description', 'default.jpg', 1, '2021-03-10 11:18:40'),
-(12, 2, 'Test Post 11', 'this is a description.', 'default.jpg', 0, '2021-03-10 11:18:58'),
-(13, 2, 'Test Post 12', 'this is a description.', 'default.jpg', 0, '2021-03-10 11:19:19'),
-(14, 2, 'Test title 13', 'this is description', 'default.jpg', 0, '2021-03-10 11:19:41'),
-(15, 2, 'Test Post 14', 'this is adescription.', 'default.jpg', 0, '2021-03-10 11:19:55'),
-(16, 2, 'Test Post 15', 'this is a description.', 'default.jpg', 0, '2021-03-10 11:20:17'),
+(12, 2, 'Test Post 11', 'this is a description.', 'default.jpg', 1, '2021-03-10 11:18:58'),
+(13, 2, 'Test Post 12', 'this is a description.', 'default.jpg', 2, '2021-03-10 11:19:19'),
+(14, 2, 'Test title 13', 'this is description', 'default.jpg', 2, '2021-03-10 11:19:41'),
+(15, 2, 'Test Post 14', 'this is adescription.', 'default.jpg', 1, '2021-03-10 11:19:55'),
+(16, 2, 'Test Post 15', 'this is a description.', 'default.jpg', 15, '2021-03-10 11:20:17'),
 (17, 2, 'Test Post 16', 'this is a description.', 'default.jpg', 2, '2021-03-10 11:20:42'),
 (18, 4, 'Test Post', 'thus is a test post.', 'default.jpg', 0, '2021-03-10 20:15:04'),
 (21, 4, 'Test Post', '123456', 'default.jpg', 0, '2021-03-10 20:52:28'),
@@ -76,10 +88,10 @@ INSERT INTO `posts` (`id`, `user_id`, `title`, `body`, `post_image`, `post_views
 (43, 4, 'Admin test Post', 'hty jt j', 'DD2.jpg', 1, '2021-03-11 14:17:31'),
 (45, 4, 'Admin test Post', 'this is a test post', 'DD1.jpg', 0, '2021-03-11 15:27:27'),
 (50, 4, 'Test Post', 'this is post image test.', 'default.jpg', 0, '2021-03-11 15:52:17'),
-(51, 4, 'Test Post', 'test', 'DD3.jpg', 3, '2021-03-11 16:01:04'),
-(52, 4, 'Test Post', 'm hj mjhj', 'LULU1_1615450432.jpg', 5, '2021-03-11 16:13:52'),
-(57, 4, 'Test Post', 'jy tyjy t', 'default.jpg', 8, '2021-03-11 16:26:04'),
-(58, 4, 'Test Post', 'juy ruj u', 'DD2_1615451222.jpg', 31, '2021-03-11 16:27:02');
+(51, 4, 'Test Post', 'test', 'DD3.jpg', 4, '2021-03-11 16:01:04'),
+(52, 4, 'Test Post', 'm hj mjhj', 'LULU1_1615450432.jpg', 6, '2021-03-11 16:13:52'),
+(57, 4, 'Test Post', '11223456', 'default.jpg', 71, '2021-03-11 16:26:04'),
+(58, 4, 'Test Post', 'juy ruj u', 'DD2_1615451222.jpg', 449, '2021-03-11 16:27:02');
 
 -- --------------------------------------------------------
 
@@ -135,7 +147,7 @@ ALTER TABLE `users`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `posts`
