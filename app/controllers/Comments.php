@@ -34,4 +34,30 @@
                 redirect("posts/show/$post_id");
             }
         }
+
+        public function edit($id, $post_id) {
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Get existing post from model
+
+                // Sanitize POST array
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $data = [
+                    'id' => $id,
+                    'post_id' => $post_id,
+                    'body' => trim($_POST['body'])
+                ];
+
+
+                
+                if ($this->commentModel->editComment($data)) {
+                    flash('comment_message', 'update comment');
+                    redirect("posts/show/$post_id");
+                } else {
+                    die('Something wentwrong');
+                }
+            } else {
+                redirect("posts/show/$post_id");
+            }
+        }
     }

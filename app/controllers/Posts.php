@@ -30,6 +30,25 @@
             $this->view('posts/index', $data);
         }
 
+        public function posts_ajax() {
+
+            $items_total_count = $this->postModel->postCount();
+            $page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+            $items_per_page = !empty($_GET['items_per_page']) ? (int)$_GET['items_per_page'] : 4;
+
+            // Get posts
+            $posts = $this->postModel->getPosts($page, $items_per_page, $items_total_count);
+
+            $data = [
+                'posts' => $posts,
+                'posts_total' => $items_total_count,
+                'page_total' => ceil($items_total_count/$items_per_page),
+                'current_page' => $page
+            ];
+
+            $this->view('posts/posts_ajax', $data['posts']);
+        }
+
         public function add() {
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $upload_errors = array(

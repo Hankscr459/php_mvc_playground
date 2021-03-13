@@ -16,3 +16,11 @@
     height: 5rem;
     object-fit: cover;
 }
+
+.display-none {
+    display: none;
+}
+
+.display-flex {
+    display: flex;
+}
