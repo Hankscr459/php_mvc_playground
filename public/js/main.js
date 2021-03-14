@@ -1,6 +1,13 @@
+
 $(document).ready(function(){
-   $(".edit_comment").click(function() {
-        var commentId = $(".edit_comment").attr("id");
+     var commentId
+
+
+   $(`.edit_comment`).click(function() {
+
+
+        commentId = $(this).attr("data-edit");
+     //    alert(commentId)
 
         $(`#input_reply_${commentId}`).css("display", "flex");
         $(`#reply_${commentId}`).css("display", "none");
@@ -8,7 +15,7 @@ $(document).ready(function(){
    })
 
    $(".cancel_comment").click(function() {
-        var commentId = $(".cancel_comment").attr("id");
+        commentId = $(this).attr("id");
         const number = commentId.slice(12,commentId.length);
 
         $(`#input_reply_${number}`).css("display", "none");

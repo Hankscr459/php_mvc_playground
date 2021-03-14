@@ -43,4 +43,38 @@
                 return false;
             }
         }
+
+        public function deleteComment($id) {
+            $this->db->query('DELETE FROM comments WHERE id = :id');
+            
+            $this->db->bind(':id', $id);
+
+            // Execute
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // public function deletePost($id) {
+        //     $this->db->query('DELETE FROM posts WHERE id = :id');
+        //     // Bind values
+        //     $this->db->bind(':id', $id);
+
+        //     // Execute
+        //     if ($this->db->execute()) {
+        //         return true;
+        //     } else {
+        //         return false;getComment
+        //     }
+        // }
+
+        public function getComment($id) {
+            $this->db->query('SELECT * FROM comments WHERE 	id	= :id');
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+            return $row;
+        }
     }

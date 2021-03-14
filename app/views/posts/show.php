@@ -47,11 +47,19 @@
                             <div class="d-inline">
 
                                 <?php if($comment->user_id == $_SESSION['user_id']) : ?>
-                                    <span id="<?php echo $comment->id; ?>" href="" class="btn btn-outline-primary edit_comment">Edit</span>
+                                    <span 
+                                        id="<?php echo $comment->id; ?>"
+                                        class="btn btn-outline-primary edit_comment" 
+                                        data-edit="<?php echo $comment->id; ?>"
+                                    >
+                                        Edit
+                                    </span>
                                 <?php endif; ?>
 
                                 <?php if($data['post']->user_id == $_SESSION['user_id'] || $_SESSION['user_role'] == 'admin' || $comment->user_id == $_SESSION['user_id']) : ?>
-                                    <a href="" class="btn btn-outline-danger">Delete</a>
+                                    <form class="d-inline" action="<?php echo URLROOT; ?>/comments/delete/<?php echo $comment->id; ?>" method="post">
+                                        <button type="submit" name="submit" class="btn btn-outline-danger">Delete</button>
+                                    </form>
                                 <?php endif; ?>
 
                             </div>
@@ -60,7 +68,7 @@
                     <div class="display-flex justify-content-between ml-3">
                     <?php if($comment->user_id == $_SESSION['user_id']) : ?>
                         <form id="input_reply_<?php echo $comment->id; ?>" class="display-none" action="<?php echo URLROOT; ?>/comments/edit/<?php echo $comment->id; ?>/<?php echo $data['post']->id; ?>" method="post">
-                            <input class="form-control" type="text" name="body" value="<?php echo $comment->body; ?>">
+                            <textarea class="form-control" type="text" name="body" ><?php echo $comment->body; ?></textarea>
                             <button type="submit" class="btn btn-primary ml-3 display-flex" >Update</button>
                             <span id="edit_cancel_<?php echo $comment->id; ?>" class="btn btn-secondary ml-3 cancel_comment">Cancel</span>
                         </form>

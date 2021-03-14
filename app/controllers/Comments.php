@@ -60,4 +60,24 @@
                 redirect("posts/show/$post_id");
             }
         }
+
+        public function delete($id) {
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $comment = $this->commentModel->getComment($id);
+
+                if ($comment->user_id != $_SESSION['user_id'] || $_SESSION['user_role'] != 'admin') {
+                    redirect("posts/show/$comment->post_id");
+                }
+
+                if ($this->commentModel->deleteComment($id)) {
+                    flash('comment_message', 'Remove comment');
+                    redirect("posts/show/$comment->post_id");
+                } else {
+                    die('Something wentwrong');
+                }
+            } else {
+                redirect("posts/");
+            }
+        }
     }

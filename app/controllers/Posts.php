@@ -199,7 +199,7 @@
                 $post = $this->postModel->getPostById($id);
 
                 // Check for owner or admin
-                if ($post->user_id != $_SESSION['user_id']) {
+                if ($post->user_id != $_SESSION['user_id'] || $_SESSION['user_role'] != 'admin') {
                     redirect('posts');
                 }
                 if ($this->postModel->deletePost($id)) {
