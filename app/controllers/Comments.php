@@ -9,6 +9,7 @@
             }
             
             $this->commentModel = $this->model('Comment');
+            $this->postModel = $this->model('Post');
         }
 
         public function add($post_id) {
@@ -22,7 +23,7 @@
                     'author' => $_SESSION['user_name']
                 ];
 
-
+                $this->postModel->addCommentsCount($post_id);
                 
                 if ($this->commentModel->addComment($data)) {
                     flash('comment_message', 'add comment');
@@ -65,6 +66,8 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $comment = $this->commentModel->getComment($id);
+
+                $this->postModel->removeOneCommentCount($comment->post_id);
 
                 if ($comment->user_id != $_SESSION['user_id'] || $_SESSION['user_role'] != 'admin') {
                     redirect("posts/show/$comment->post_id");

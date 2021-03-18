@@ -6,21 +6,25 @@ $(document).ready(function(){
    $(`.edit_comment`).click(function() {
 
 
-        commentId = $(this).attr("data-edit");
+     commentId = $(this).attr("data-edit");
      //    alert(commentId)
 
-        $(`#input_reply_${commentId}`).css("display", "flex");
-        $(`#reply_${commentId}`).css("display", "none");
+     $(`#input_reply_${commentId}`).css("display", "flex");
+     $(`#reply_${commentId}`).css("display", "none");
 
    })
 
    $(".cancel_comment").click(function() {
-        commentId = $(this).attr("id");
-        const number = commentId.slice(12,commentId.length);
+     commentId = $(this).attr("id");
+     const number = commentId.slice(12,commentId.length);
 
-        $(`#input_reply_${number}`).css("display", "none");
-        $(`#reply_${number}`).css("display", "flex");
+     $(`#input_reply_${number}`).css("display", "none");
+     $(`#reply_${number}`).css("display", "flex");
 
-    })
-
+   })
+   
+  //  $(".like").click(function() {
+  //   console.log("It works")
+  // })
+  
 });

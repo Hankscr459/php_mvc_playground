@@ -127,5 +127,21 @@
 
             $this->db->execute();
         }
+
+        public function addCommentsCount($postId) {
+            // Add Comment count
+            $this->db->query("UPDATE posts SET post_comments_count = post_comments_count + 1 WHERE id = :postId ");
+            $this->db->bind(':postId', $postId);
+
+            $this->db->execute();
+        }
+
+        public function removeOneCommentCount($postId) {
+            // Rmove a Comment count
+            $this->db->query("UPDATE posts SET post_comments_count = post_comments_count - 1 WHERE id = :postId ");
+            $this->db->bind(':postId', $postId);
+
+            $this->db->execute();
+        }
     }
 ?>

@@ -19,6 +19,10 @@
  
     <hr class="mt-5 mb-5">
 
+    <!-- <div class="row">
+        <p class="pull-right"><a class="like p-3" href="" ><i class="far fa-thumbs-up"></i> Like</a></p>
+    </div> -->
+
     <!-- Comments Form -->
     <div class="well mt-5">
         <h4>Leave a Comment:</h4>
@@ -68,9 +72,9 @@
                     <div class="display-flex justify-content-between ml-3">
                     <?php if($comment->user_id == $_SESSION['user_id']) : ?>
                         <form id="input_reply_<?php echo $comment->id; ?>" class="display-none" action="<?php echo URLROOT; ?>/comments/edit/<?php echo $comment->id; ?>/<?php echo $data['post']->id; ?>" method="post">
-                            <textarea class="form-control" type="text" name="body" ><?php echo $comment->body; ?></textarea>
-                            <button type="submit" class="btn btn-primary ml-3 display-flex" >Update</button>
-                            <span id="edit_cancel_<?php echo $comment->id; ?>" class="btn btn-secondary ml-3 cancel_comment">Cancel</span>
+                            <textarea class="form-control form-control-lg" type="text" name="body"><?php echo $comment->body; ?></textarea>
+                            <button type="submit" class="btn btn-primary ml-3 display-flex" style="height: 3rem;">Update</button>
+                            <span id="edit_cancel_<?php echo $comment->id; ?>" class="btn btn-secondary ml-3 cancel_comment" style="height: 3rem;">Cancel</span>
                         </form>
                         <span id="reply_<?php echo $comment->id; ?>" class="display-flex"><?php echo $comment->body; ?></span>
                     <?php endif; ?>
